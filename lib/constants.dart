@@ -1,0 +1,1 @@
+const BaseUrl = 'api.dominio.com';
