@@ -24,7 +24,10 @@ class AuthService extends ChangeNotifier {
     // final options = IOSOptions(accessibility: IOSAccessibility.first_unlock);
     await storage.write(key: 'token', value: token);
   }
-
+  Future<void> logout() async {
+    await storage.delete(key: 'token');
+    return;
+  }
   Future<String?> login(Map<String,dynamic> payload) async {
     final _headers = {'Content-Type': 'application/json'};
     final url = Uri.https(BaseUrl, '/api/auth/login');

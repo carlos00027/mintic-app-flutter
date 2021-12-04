@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mintic_app/services/auth_service.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: _Drawer(),
       appBar: AppBar(
         title: Text('Bienvenido'),
       ),
@@ -21,6 +24,62 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _Drawer extends StatelessWidget {
+  const _Drawer({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _authService = Provider.of<AuthService>(context);
+    return Drawer(
+      // Add a ListView to the drawer. This ensures the user can scroll
+      // through the options in the drawer if there isn't enough vertical
+      // space to fit everything.
+      child: ListView(
+        // Important: Remove any padding from the ListView.
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Text(
+              'Menu Principal',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          ListTile(
+            title: const Text('Pedidos'),
+            leading: Icon(Icons.add),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          ListTile(
+            title: const Text('Nuevo pedido'),
+            leading: Icon(Icons.add),
+            onTap: () {
+              // Update the state of the app.
+              // ...
+            },
+          ),
+          Divider(),
+          ListTile(
+            title: const Text('Cerrar sesion'),
+           leading: Icon(Icons.logout_outlined),
+            onTap: () {
+              _authService.logout();
+              Navigator.of(context).pushReplacementNamed('auth.login');
+            },
+          ),
+        ],
       ),
     );
   }

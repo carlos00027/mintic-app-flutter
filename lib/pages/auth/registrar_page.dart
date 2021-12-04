@@ -114,7 +114,7 @@ class _MiForm extends StatelessWidget {
                   _formProvider.isLoading = false;
                   return;
                 }
-                Navigator.of(context).pushNamed('home');
+                Navigator.of(context).pushNamed('auth.login');
                 _formProvider.isLoading = false;
               },
               child: Text('Registrarme',style: TextStyle(color: Colors.white)),
