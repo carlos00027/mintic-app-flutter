@@ -44,9 +44,18 @@ class _Formulario extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              'Inicio de sesion',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Inicio de ',
+                  style: TextStyle(fontSize: 24),
+                ),
+                Text(
+                  'sesion',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                ),
+              ],
             ),
             SizedBox(height: 15),
             TextFormField(
@@ -54,12 +63,13 @@ class _Formulario extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
               onChanged: (value) => _formProvider.correo = value,
-              validator: (value) {
-                if (value!.isEmpty) return 'Requerido';
+              validator: (value){
+                final emailRegExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+                if(value!.isEmpty) return 'Requerido';
+                else if(!emailRegExp.hasMatch(value)) return 'Formato de correo no valido';
                 return null;
               },
               decoration: InputDecoration(
-                filled: true,
                 labelText: 'Correo electronico',
                 hintText: 'Ej. correo@electronico.com',
               ),
@@ -78,7 +88,6 @@ class _Formulario extends StatelessWidget {
                 return null;
               },
               decoration: InputDecoration(
-                filled: true,
                 labelText: 'Clave',
                 hintText: '******',
                 suffixIcon: IconButton(
@@ -109,6 +118,7 @@ class _Formulario extends StatelessWidget {
               },
               child: Text(
                 'Registrarme',
+                style: TextStyle(color: Theme.of(context).primaryColor),
               ),
             )
           ],
