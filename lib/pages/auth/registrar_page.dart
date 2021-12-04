@@ -97,14 +97,13 @@ class _MiForm extends StatelessWidget {
               color: Theme.of(context).primaryColor,
               onPressed: _formProvider.isLoading ? null : () async {
                 FocusScope.of(context).unfocus();
-                _formProvider.isLoading = true;
                 if(!_formProvider.isValid()) return;
 
                 if(!_formProvider.claveIsValid()) {
                   print('clave no coincide');
-                  _formProvider.isLoading = false;
                   return;
                 }
+                _formProvider.isLoading = true;
                 final Map<String,dynamic> payload = {
                   'correo': _formProvider.correo,
                   'clave': _formProvider.clave
