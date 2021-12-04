@@ -10,6 +10,10 @@ class AuthService extends ChangeNotifier {
     return _headers;
   }
 
+  Future<String> readToken () async {
+    return await storage.read(key: 'token') ?? '';
+  }
+
   Future<String?> login(Map<String,dynamic> payload) async {
     final _headers = {'Content-Type': 'application/json'};
     final url = Uri.https(BaseUrl, '/api/auth/login');
