@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       drawer: _Drawer(),
       appBar: AppBar(
-        title: Text('Bienvenido'),
+        title: Text('MinTic App'),
       ),
       body: Container(
         width: double.infinity,
@@ -17,11 +17,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('hola mundo'),
-            TextButton(
-              onPressed: () => Navigator.of(context).pushNamed('auth.login'),
-              child: Text('Ir a login'),
-            )
+            Text('Bienvenido a nuestro aplicativo'),
           ],
         ),
       ),
@@ -56,18 +52,16 @@ class _Drawer extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Pedidos'),
-            leading: Icon(Icons.add),
+            leading: Icon(Icons.format_list_bulleted_outlined),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.of(context).pushNamed('pedidos.listar');
             },
           ),
           ListTile(
             title: const Text('Nuevo pedido'),
             leading: Icon(Icons.add),
             onTap: () {
-              // Update the state of the app.
-              // ...
+              Navigator.of(context).pushNamed('pedidos.form');
             },
           ),
           Divider(),

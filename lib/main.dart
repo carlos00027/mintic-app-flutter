@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mintic_app/pages/auth/auth.dart';
 import 'package:mintic_app/pages/home.dart';
+import 'package:mintic_app/pages/pedidos/pedidos.dart';
+import 'package:mintic_app/pages/pedidos/pedidos_form_page.dart';
+import 'package:mintic_app/services/pedidos_service.dart';
 import 'package:provider/provider.dart';
 import 'services/services.dart';
 
@@ -21,6 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AuthService()),
+        ChangeNotifierProvider(create: (_) => PedidosService()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -33,7 +37,9 @@ class MyApp extends StatelessWidget {
           'home': (_) => HomePage(),
           'auth.check': (_) => CheckPage(),
           'auth.login': (_) => LoginPage(),
-          'auth.registrar': (_) => RegistrarPage()
+          'auth.registrar': (_) => RegistrarPage(),
+          'pedidos.listar': (_) => PedidosListarPage(),
+          'pedidos.form': (_) => PedidosFormPage()
         },
         scaffoldMessengerKey: NotificationsService.messengerKey,
       ),
