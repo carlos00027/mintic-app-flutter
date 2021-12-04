@@ -19,15 +19,19 @@ class PedidosService extends ChangeNotifier{
     return _headers;
   }
 
-  Future<List> listar() async{
+  Future<List> listar({bool refresh = false }) async{
     final url = Uri.https(BaseUrl, '/api/pedidos');
     print('consumiendo $url');
     final _headers = await this._getHeaders();
     final http.Response response = await http.get(url,headers: _headers);
     final List parseData = json.decode(response.body);
+    this.pedidos.clear();
     parseData.forEach((element) {
       this.pedidos.add(element);
     });
+    if(refresh){
+      notifyListeners();
+    }
     return this.pedidos;
   }
 }
