@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mintic_app/constants.dart';
+import 'package:http/http.dart' as http;
 
 class AuthService extends ChangeNotifier{
   Future<Map<String,String>> getHeaders() async{
@@ -10,10 +13,13 @@ class AuthService extends ChangeNotifier{
     return _headers;
   }
 
-  Future login() async{
+  Future<String?> login() async{
     final _headers = await getHeaders();
     final url = Uri.https(BaseUrl, '/api/ss');
-    final response = http
+    final response = await http.get(url,headers: _headers);
+    final parseData = json.decode(response.body);
+    if(response.statusCode == 200) return null;
+    return parseData['message'];
   }
 
 }
