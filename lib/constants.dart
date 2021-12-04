@@ -1,1 +1,1 @@
-const BaseUrl = 'api.dominio.com';
+const BaseUrl = 'secret-scrubland-71522.herokuapp.com';
