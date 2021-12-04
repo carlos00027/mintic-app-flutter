@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget{
@@ -7,10 +8,18 @@ class HomePage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('hola'),
+        title: Text('Bienvenido'),
       ),
-      body: Center(
-        child: Text('hola mundo'),
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('hola mundo'),
+            TextButton(onPressed: ()=>Navigator.of(context).pushNamed('auth.login'), child: Text('Ir a login'))
+          ],
+        ),
       ),
     );
   }

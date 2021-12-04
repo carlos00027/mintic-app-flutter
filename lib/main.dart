@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mintic_app/pages/auth/auth.dart';
 import 'package:mintic_app/pages/home.dart';
 
 void main() {
@@ -13,7 +14,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomePage(),
+      initialRoute: 'home',
+      routes: {
+        'home': (_) => HomePage(),
+        'auth.login': (_) => LoginPage()
+      },
     );
   }
 }
