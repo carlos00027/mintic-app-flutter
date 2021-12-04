@@ -112,7 +112,10 @@ class _Formulario extends StatelessWidget {
                       FocusScope.of(context).unfocus();
                       if (!_formProvider.isValid()) return;
                       _formProvider.isLoading = true;
-                      final Map<String, dynamic> payload = {'correo': _formProvider.correo, 'clave': _formProvider.clave};
+                      final Map<String, dynamic> payload = {
+                        'correo': _formProvider.correo,
+                        'clave': _formProvider.clave,
+                      };
                       final String? result = await _authService.login(payload);
                       print('===> $result');
                       _formProvider.isLoading = false;

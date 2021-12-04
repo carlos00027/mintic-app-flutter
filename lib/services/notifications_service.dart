@@ -14,8 +14,6 @@ class NotificationsService{
         ),
       ),
     );
-    print(222);
-    print(messengerKey.currentState);
     messengerKey.currentState!.showSnackBar(snackBar);
   }
 }
