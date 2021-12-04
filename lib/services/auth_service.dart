@@ -10,10 +10,12 @@ class AuthService extends ChangeNotifier {
     return _headers;
   }
 
-  Future<String?> login() async {
-    final _headers = await getHeaders();
-    final url = Uri.https(BaseUrl, '/api/ss');
-    final response = await http.get(url, headers: _headers);
+  Future<String?> login(Map<String,dynamic> payload) async {
+    final _headers = {'Content-Type': 'application/json'};
+    final url = Uri.https(BaseUrl, '/api/auth/login');
+    print('consumiendo $url');
+    final _body = json.encode(payload);
+    final response = await http.post(url, headers: _headers,body: _body);
     final parseData = json.decode(response.body);
     if (response.statusCode == 200) return null;
     return parseData['message'];

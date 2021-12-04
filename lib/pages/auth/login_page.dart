@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mintic_app/providers/auth_login_provider.dart';
+import 'package:mintic_app/services/Notifications_service.dart';
+import 'package:mintic_app/services/auth_service.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -34,6 +36,7 @@ class _Formulario extends StatelessWidget {
   Widget build(BuildContext context) {
     final _formProvider = Provider.of<AuthLoginProvider>(context);
     final _media = MediaQuery.of(context).size;
+    final _authService = Provider.of<AuthService>(context);
     return Container(
       // color: Colors.blue[300],
       height: _media.height,
@@ -63,10 +66,11 @@ class _Formulario extends StatelessWidget {
               keyboardType: TextInputType.emailAddress,
               autocorrect: false,
               onChanged: (value) => _formProvider.correo = value,
-              validator: (value){
+              validator: (value) {
                 final emailRegExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-                if(value!.isEmpty) return 'Requerido';
-                else if(!emailRegExp.hasMatch(value)) return 'Formato de correo no valido';
+                if (value!.isEmpty)
+                  return 'Requerido';
+                else if (!emailRegExp.hasMatch(value)) return 'Formato de correo no valido';
                 return null;
               },
               decoration: InputDecoration(
@@ -102,20 +106,32 @@ class _Formulario extends StatelessWidget {
             MaterialButton(
               minWidth: double.infinity,
               color: Theme.of(context).primaryColor,
-              onPressed: () {
-                print(_formProvider.correo);
-                print(_formProvider.clave);
-                print(_formProvider.isValid());
-              },
+              onPressed: _formProvider.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      if (!_formProvider.isValid()) return;
+                      _formProvider.isLoading = true;
+                      final Map<String, dynamic> payload = {'correo': _formProvider.correo, 'clave': _formProvider.clave};
+                      final String? result = await _authService.login(payload);
+                      print('===> $result');
+                      _formProvider.isLoading = false;
+
+                      if (result != null) {
+                        print('11111');
+                        NotificationsService.showSnackBar(result.toString());
+                        return;
+                      }
+
+                      Navigator.of(context).pushReplacementNamed('home');
+                    },
               child: Text(
                 'Ingresar',
                 style: TextStyle(color: Colors.white),
               ),
             ),
             MaterialButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('auth.registrar');
-              },
+              onPressed: () => Navigator.of(context).pushNamed('auth.registrar'),
               child: Text(
                 'Registrarme',
                 style: TextStyle(color: Theme.of(context).primaryColor),

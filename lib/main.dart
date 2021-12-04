@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mintic_app/pages/auth/auth.dart';
 import 'package:mintic_app/pages/home.dart';
-import 'package:mintic_app/services/auth_service.dart';
+
 import 'package:provider/provider.dart';
+
+import 'services/services.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,12 +24,14 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+
         initialRoute: 'home',
         routes: {
           'home': (_) => HomePage(),
           'auth.login': (_) => LoginPage(),
           'auth.registrar': (_) => RegistrarPage()
         },
+        scaffoldMessengerKey: NotificationsService.messengerKey,
       ),
     );
   }
