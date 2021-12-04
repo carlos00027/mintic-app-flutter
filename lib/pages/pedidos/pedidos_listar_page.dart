@@ -11,15 +11,18 @@ class PedidosListarPage extends StatelessWidget {
     final _formatter = DateFormat('dd MMM yyyy HH:mm');
     return Scaffold(
       appBar: AppBar(
-        title: Text('Listado de pedidos'),
+        title: Text(
+          'Listado de pedidos (${_pedidosService.pedidos.length})',
+          overflow: TextOverflow.ellipsis,
+        ),
         actions: [
           PopupMenuButton(
             icon: Icon(Icons.menu),
-            onSelected: (item){
+            onSelected: (item) {
               print(item);
-              if(item == 0){
+              if (item == 0) {
                 Navigator.of(context).pushNamed('pedidos.form');
-              }else if(item == 1){
+              } else if (item == 1) {
                 _pedidosService.listar(refresh: true);
               }
             },
@@ -55,7 +58,15 @@ class PedidosListarPage extends StatelessWidget {
                           key == 0 || key == snapshot.data!.length ? Container() : Divider(),
                           ListTile(
                             title: Text('${snapshot.data![key]['clienteId']['nombres']} ${snapshot.data![key]['clienteId']['apellidos']}'),
-                            subtitle: Text(_formatter.format(DateTime.parse(snapshot.data![key]['fecha']))),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Cant. Productos: ${snapshot.data![key]['productos'].length}', style: TextStyle(fontSize: 12)),
+                                Text('Fecha: ' + _formatter.format(DateTime.parse(snapshot.data![key]['fecha'])), style: TextStyle(fontSize: 12)),
+                                Text('Estado: ' + snapshot.data![key]['estados'][snapshot.data![key]['estados'].length - 1]['estado'],
+                                    style: TextStyle(fontSize: 12))
+                              ],
+                            ),
                             trailing: Icon(Icons.navigate_next_outlined),
                             onTap: () {},
                           ),
