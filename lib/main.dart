@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:mintic_app/pages/auth/auth.dart';
 import 'package:mintic_app/pages/home.dart';
 import 'package:mintic_app/pages/pedidos/pedidos.dart';
-import 'package:mintic_app/pages/pedidos/pedidos_form_page.dart';
 import 'package:mintic_app/services/pedidos_service.dart';
 import 'package:provider/provider.dart';
 import 'services/services.dart';
@@ -39,7 +38,8 @@ class MyApp extends StatelessWidget {
           'auth.login': (_) => LoginPage(),
           'auth.registrar': (_) => RegistrarPage(),
           'pedidos.listar': (_) => PedidosListarPage(),
-          'pedidos.form': (_) => PedidosFormPage()
+          'pedidos.form': (_) => PedidosFormPage(),
+          'pedidos.ver': (_) => PedidosVerPage(),
         },
         scaffoldMessengerKey: NotificationsService.messengerKey,
       ),

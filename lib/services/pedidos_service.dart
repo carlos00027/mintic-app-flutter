@@ -21,10 +21,11 @@ class PedidosService extends ChangeNotifier{
 
   Future<List> listar({bool refresh = false }) async{
     final url = Uri.https(BaseUrl, '/api/pedidos');
-    print('consumiendo $url');
+    print('consumiendo1 $url');
     final _headers = await this._getHeaders();
     final http.Response response = await http.get(url,headers: _headers);
     final List parseData = json.decode(response.body);
+
     this.pedidos.clear();
     parseData.forEach((element) {
       this.pedidos.add(element);
@@ -33,5 +34,14 @@ class PedidosService extends ChangeNotifier{
       notifyListeners();
     }
     return this.pedidos;
+  }
+
+  Future<Map<String,dynamic>> ver(String id) async {
+    final url = Uri.https(BaseUrl, '/api/pedidos/$id');
+    print('consumiendo $url');
+    final _headers = await this._getHeaders();
+    final http.Response response = await http.get(url,headers: _headers);
+    final Map<String,dynamic> parseData = json.decode(response.body);
+    return parseData;
   }
 }

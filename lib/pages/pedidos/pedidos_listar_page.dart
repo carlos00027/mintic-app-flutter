@@ -68,7 +68,11 @@ class PedidosListarPage extends StatelessWidget {
                               ],
                             ),
                             trailing: Icon(Icons.navigate_next_outlined),
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pushNamed('pedidos.ver',arguments: {
+                                'id': snapshot.data![key]['_id']
+                              });
+                            },
                           ),
                         ],
                       );
