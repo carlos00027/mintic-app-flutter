@@ -40,6 +40,7 @@ class MyApp extends StatelessWidget {
           'pedidos.listar': (_) => PedidosListarPage(),
           'pedidos.form': (_) => PedidosFormPage(),
           'pedidos.ver': (_) => PedidosVerPage(),
+          'pedidos.scan': (_) => PedidosScanPage(),
         },
         scaffoldMessengerKey: NotificationsService.messengerKey,
       ),

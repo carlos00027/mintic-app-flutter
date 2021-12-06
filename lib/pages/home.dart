@@ -64,6 +64,13 @@ class _Drawer extends StatelessWidget {
               Navigator.of(context).pushNamed('pedidos.form');
             },
           ),
+          ListTile(
+            title: const Text('Buscar pedido con Qr'),
+            leading: Icon(Icons.qr_code_scanner_outlined),
+            onTap: () {
+              Navigator.of(context).pushNamed('pedidos.scan');
+            },
+          ),
           Divider(),
           ListTile(
             title: const Text('Cerrar sesion'),
