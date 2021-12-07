@@ -56,9 +56,13 @@ class PedidosListarPage extends StatelessWidget {
                     itemCount: snapshot.data!.length,
                     itemBuilder: (BuildContext context, int key) {
                       return Column(
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                           key == 0 || key == snapshot.data!.length ? Container() : Divider(),
                           ListTile(
+                            leading: CircleAvatar(
+                              child: Icon(Icons.shopping_basket_outlined),
+                            ),
                             title: Text('${snapshot.data![key]['clienteId']['nombres']} ${snapshot.data![key]['clienteId']['apellidos']}'),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
