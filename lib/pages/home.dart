@@ -57,13 +57,13 @@ class _Drawer extends StatelessWidget {
               Navigator.of(context).pushNamed('pedidos.listar');
             },
           ),
-          ListTile(
+          /*ListTile(
             title: const Text('Nuevo pedido'),
             leading: Icon(Icons.add),
             onTap: () {
               Navigator.of(context).pushNamed('pedidos.form');
             },
-          ),
+          ),*/
           ListTile(
             title: const Text('Buscar pedido con Qr'),
             leading: Icon(Icons.qr_code_scanner_outlined),

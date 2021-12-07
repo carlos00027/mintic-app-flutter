@@ -134,10 +134,20 @@ class _Formulario extends StatelessWidget {
               ),
             ),
             MaterialButton(
+              minWidth: double.infinity,
               onPressed: () => Navigator.of(context).pushNamed('auth.registrar'),
               child: Text(
                 'Registrarme',
                 style: TextStyle(color: Theme.of(context).primaryColor),
+              ),
+            ),
+            MaterialButton(
+              minWidth: double.infinity,
+              color: Colors.green,
+              onPressed: () => Navigator.of(context).pushNamed('pedidos.scan'),
+              child: Text(
+                'Scan QR',
+                style: TextStyle(color: Colors.white),
               ),
             )
           ],

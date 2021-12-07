@@ -30,10 +30,10 @@ class PedidosListarPage extends StatelessWidget {
             },
             itemBuilder: (BuildContext context) {
               return [
-                PopupMenuItem(
+                /*PopupMenuItem(
                   value: 0,
                   child: Text('Crear pedido'),
-                ),
+                ),*/
                 PopupMenuItem(
                   value: 1,
                   child: Text('Recargar listado'),
