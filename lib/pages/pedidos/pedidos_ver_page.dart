@@ -95,13 +95,16 @@ class PedidosVerPage extends StatelessWidget {
                         ],
                       ),
                       Text('Linea de tiempo: ',style: TextStyle(fontWeight: FontWeight.bold),),
+                      SizedBox(height: 15),
                       ..._estados.map((e) {
                         return Column(
                           children: [
                             ListTile(
                               leading: Icon(Icons.label_outlined),
                               title: Text('${e['estado'].toString().toUpperCase()}'),
-                              trailing: Text('${_formatter.format( DateTime.parse(e['fecha']))}'),
+                              trailing: Text('${_formatter.format( DateTime.parse(e['fecha']).toLocal())}'),
+                              subtitle: Text('${e['justificacion']}',style: TextStyle(fontSize: 12),),
+                              dense: true,
                             ),
                             Divider()
                           ],
