@@ -44,4 +44,16 @@ class PedidosService extends ChangeNotifier{
     final Map<String,dynamic> parseData = json.decode(response.body);
     return parseData;
   }
+
+  Future<String?> estadoActualizar(Map<String,dynamic> payload, String id) async {
+    final url = Uri.https(BaseUrl, '/api/pedidos/$id');
+    print('consumiendo $url');
+    final _headers = await this._getHeaders();
+    final _body = json.encode(payload);
+    print(_body);
+    final http.Response response = await http.put(url,headers: _headers,body: _body);
+    if(response.statusCode == 200) return null;
+    final parseData = json.decode(response.body);
+    return parseData['message'];
+  }
 }
