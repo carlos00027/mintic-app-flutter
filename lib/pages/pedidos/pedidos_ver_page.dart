@@ -10,7 +10,7 @@ class PedidosVerPage extends StatelessWidget {
     final _pedidosService = Provider.of<PedidosService>(context);
     final args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final String id = args['id'];
-    final _formatter = DateFormat('dd MM yyyy HH:mm');
+    final _formatter = DateFormat('dd/MM/yyyy HH:mm');
     final _formatNumber = NumberFormat.currency(locale: 'es', symbol: '');
     return Scaffold(
       appBar: AppBar(
@@ -29,6 +29,8 @@ class PedidosVerPage extends StatelessWidget {
                     'estados': []
                   };
                   final List<dynamic> _productos = _row['productos'];
+                  final List<dynamic> _estados = _row['estados'];
+
                   print(_productos);
                   double _total = 0;
                   for (dynamic _item in _productos) {
@@ -77,6 +79,7 @@ class PedidosVerPage extends StatelessWidget {
                           ],
                         );
                       }),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -90,7 +93,20 @@ class PedidosVerPage extends StatelessWidget {
                             style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                           )
                         ],
-                      )
+                      ),
+                      Text('Estados: ',style: TextStyle(fontWeight: FontWeight.bold),),
+                      ..._estados.map((e) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              leading: Icon(Icons.label_outlined),
+                              title: Text('${e['estado'].toString().toUpperCase()}'),
+                              trailing: Text('${_formatter.format( DateTime.parse(e['fecha']))}'),
+                            ),
+                            Divider()
+                          ],
+                        );
+                      }),
                     ],
                   );
                 }
