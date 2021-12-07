@@ -94,7 +94,7 @@ class PedidosVerPage extends StatelessWidget {
                           )
                         ],
                       ),
-                      Text('Estados: ',style: TextStyle(fontWeight: FontWeight.bold),),
+                      Text('Linea de tiempo: ',style: TextStyle(fontWeight: FontWeight.bold),),
                       ..._estados.map((e) {
                         return Column(
                           children: [
