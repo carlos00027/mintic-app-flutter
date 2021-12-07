@@ -34,6 +34,7 @@ class QRViewExample extends StatefulWidget {
 }
 
 class _QRViewExampleState extends State<QRViewExample> {
+  bool isQrFinded = false;
   Barcode? result;
   QRViewController? controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -54,7 +55,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(flex: 4, child: _buildQrView(context,isQrFinded: isQrFinded)),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -136,12 +137,12 @@ class _QRViewExampleState extends State<QRViewExample> {
     );
   }
 
-  Widget _buildQrView(BuildContext context) {
+  Widget _buildQrView(BuildContext context, {bool isQrFinded = false}) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 150.0 : 300.0;
     // To ensure the Scanner view is properly sizes after rotation
     // we need to listen for Flutter SizeChanged notification and update controller
-    return QRView(
+    return isQrFinded ? Container() :  QRView(
       key: qrKey,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(borderColor: Colors.red, borderRadius: 10, borderLength: 30, borderWidth: 10, cutOutSize: scanArea),
@@ -154,6 +155,8 @@ class _QRViewExampleState extends State<QRViewExample> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
+
+
       setState(() {
         result = scanData;
         print('aquiii');
@@ -161,9 +164,12 @@ class _QRViewExampleState extends State<QRViewExample> {
         print(result!.code!.split('/')[0].toString());
         if(result!.code!.split('pedidos')[1].split('/').length == 2){
           dato = result!.code!.split('pedidos')[1].split('/')[1].toString();
-          Navigator.of(context).pushReplacementNamed('pedidos.ver', arguments: {
-            'id': dato
-          });
+          if(!isQrFinded){
+            Navigator.of(context).pushReplacementNamed('pedidos.ver', arguments: {
+              'id': dato
+            });
+            isQrFinded = true;
+          }
         }
       });
     });
