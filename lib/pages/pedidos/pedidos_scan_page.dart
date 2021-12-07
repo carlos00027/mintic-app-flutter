@@ -159,10 +159,12 @@ class _QRViewExampleState extends State<QRViewExample> {
         print('aquiii');
         // print(scanData.code.toString());
         print(result!.code!.split('/')[0].toString());
-        dato = result!.code!.split('pedidos')[1].split('/')[1].toString();
-        Navigator.of(context).pushReplacementNamed('pedidos.ver', arguments: {
-          'id': dato
-        });
+        if(result!.code!.split('pedidos')[1].split('/').length == 2){
+          dato = result!.code!.split('pedidos')[1].split('/')[1].toString();
+          Navigator.of(context).pushReplacementNamed('pedidos.ver', arguments: {
+            'id': dato
+          });
+        }
       });
     });
   }
